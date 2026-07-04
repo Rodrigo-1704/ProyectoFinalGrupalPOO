@@ -69,8 +69,9 @@ public class Interfaz_Inmobiliaria extends javax.swing.JFrame {
         pnlBordeLayout.setHorizontalGroup(
             pnlBordeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBordeLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(0, 286, Short.MAX_VALUE))
+                .addContainerGap(274, Short.MAX_VALUE))
         );
         pnlBordeLayout.setVerticalGroup(
             pnlBordeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

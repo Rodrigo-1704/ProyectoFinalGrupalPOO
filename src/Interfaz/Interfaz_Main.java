@@ -4,19 +4,23 @@
  */
 package Interfaz;
 
+import java.awt.Color;
+import java.awt.geom.RoundRectangle2D;
+
 /**
  *
  * @author LUCAS
  */
 public class Interfaz_Main extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Interfaz_Main
-     */
+    private int mouseX;
+    private int mouseY;
+    private boolean maximized = true;
     public Interfaz_Main() {
         initComponents();
+        setExtendedState(Interfaz_Main.MAXIMIZED_BOTH);
+        getContentPane().setBackground(new Color(18, 18, 24));
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +30,132 @@ public class Interfaz_Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlBorde = new javax.swing.JPanel();
+        lblTitulo = new javax.swing.JLabel();
+        btnCerrar = new javax.swing.JButton();
+        btnMaximizar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(18, 18, 25));
+        setUndecorated(true);
+
+        pnlBorde.setBackground(new java.awt.Color(30, 30, 40));
+        pnlBorde.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                pnlBordeMouseDragged(evt);
+            }
+        });
+        pnlBorde.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlBordeMousePressed(evt);
+            }
+        });
+
+        lblTitulo.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setText("Main");
+
+        btnCerrar.setBackground(new java.awt.Color(30, 30, 40));
+        btnCerrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrar.setText("X");
+        btnCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCerrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarMouseExited(evt);
+            }
+        });
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+
+        btnMaximizar.setBackground(new java.awt.Color(30, 30, 40));
+        btnMaximizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnMaximizar.setText("❐");
+        btnMaximizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMaximizarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlBordeLayout = new javax.swing.GroupLayout(pnlBorde);
+        pnlBorde.setLayout(pnlBordeLayout);
+        pnlBordeLayout.setHorizontalGroup(
+            pnlBordeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBordeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 525, Short.MAX_VALUE)
+                .addComponent(btnMaximizar)
+                .addGap(0, 0, 0)
+                .addComponent(btnCerrar))
+        );
+        pnlBordeLayout.setVerticalGroup(
+            pnlBordeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnMaximizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(pnlBorde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlBorde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(485, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pnlBordeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBordeMousePressed
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_pnlBordeMousePressed
+
+    private void pnlBordeMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBordeMouseDragged
+        setLocation(
+            evt.getXOnScreen() - mouseX,
+            evt.getYOnScreen() - mouseY
+        );
+    }//GEN-LAST:event_pnlBordeMouseDragged
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseExited
+        btnCerrar.setBackground(new Color(30, 30, 40));
+        btnCerrar.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnCerrarMouseExited
+
+    private void btnCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseEntered
+        btnCerrar.setBackground(new Color(232, 17, 35));
+        btnCerrar.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnCerrarMouseEntered
+
+    private void btnMaximizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaximizarActionPerformed
+        if (maximized) {
+        setExtendedState(Interfaz_Main.NORMAL);
+        btnMaximizar.setText("□");
+        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
+        maximized = false;
+        setLocationRelativeTo(null);
+    } else {
+        setExtendedState(Interfaz_Main.MAXIMIZED_BOTH);
+        btnMaximizar.setText("❐");
+        setShape (null);
+        maximized = true;
+    }
+    }//GEN-LAST:event_btnMaximizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +193,9 @@ public class Interfaz_Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnMaximizar;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel pnlBorde;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,10 +4,17 @@
  */
 package Clases;
 
-/**
- *
- * @author rod17
- */
-public class Administrador {
-    
+public class Administrador extends Empleado {
+    public Administrador(String dni, String nombres, String apellidos, String usuario, String contraseña){
+        super(dni, nombres, apellidos, usuario, contraseña, "Administrador")
+}
+    public String gestionarSistema() {
+        return "El administrador está gestionando el sistema.";
+}
+
+    @Override
+    public String mostrarInformacion() {
+        return super.mostrarInformacion() +
+                "\nFunción: Gestionar usuarios, clientes, reservas y ventas.";
+    }
 }

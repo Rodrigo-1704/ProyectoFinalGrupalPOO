@@ -5,7 +5,7 @@
 package Clases;
 
 
-public class Empleados {
+public abstract class Empleado {
     private String dni;
     private String nombres;
     private String apellidos;
@@ -76,9 +76,7 @@ public class Empleados {
                "\nUsuario :" + usuario +
                "\nRol :" + rol;
     }
-        
-            
-            
-
     
+    public abstract void realizarTrabajo();
+            
 }

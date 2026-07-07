@@ -5,13 +5,14 @@
 package Clases;
 
 
-public class AsesorVenta extends Empleados {
+public class AsesorVenta extends Empleado {
 
     public AsesorVenta(String dni, String nombres, String apellidos, String usuario, String contrasena) {
         super(dni, nombres, apellidos, usuario, contrasena, "Asesor de Venta");
     }
-    public String atenderCliente() {
-        return "El asesor de venta está atendiendo al cliente.";
+   @Override
+    public void realizarTrabajo() {
+        System.out.println("Atendiendo clientes...");
     }
     @Override
     public String mostrarInformacion() {

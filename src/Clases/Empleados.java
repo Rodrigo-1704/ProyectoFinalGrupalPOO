@@ -71,9 +71,9 @@ public class Empleados {
     }
     public String mostrarInformacion() {
         return "DNI :" + dni +
-               "Nombres :" + apellidos +
-               "Usuario :" + usuario +
-               "Rol :" + rol;
+               "\nNombres :" + apellidos +
+               "\nUsuario :" + usuario +
+               "\nRol :" + rol;
         
             
             

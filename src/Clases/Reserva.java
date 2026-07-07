@@ -4,10 +4,6 @@
  */
 package Clases;
 
-/**
- *
- * @author rod17
- */
-public class Separacion {
+public class Reserva {
     
 }

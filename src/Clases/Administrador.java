@@ -16,5 +16,10 @@ public class Administrador extends Empleados {
     public String mostrarInformacion() {
         return super.mostrarInformacion() +
                 "\nFunción: Gestionar usuarios, clientes, reservas y ventas.";
-    }
+ }
+     @Override
+ public void realizarTrabajo() {
+     System.out.println("Gestionando el sistema...");
+ }
+
 }

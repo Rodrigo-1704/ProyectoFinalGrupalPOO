@@ -1,7 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 package Clases;
 
 public class Venta {
@@ -25,20 +24,32 @@ public class Venta {
         }
         return 0;   
     }
-    public String generarCronogramaCuotas () {
-        String texto = "";
-
-        if (modalidadPago.equalsIgnoreCase("Cuotas Directas")) {
-            double cuota = calcularMontoCuota();
-
-            for (int i = 1; i <= cantidadCuotas; i++) {
-                texto += "Cuota : " + i + "S/." + cuota + "\n";
-            }
-        } else {
-            texto = "Pago al contado. No hay cuotas.";
+ public String generarCronogramaCuotas() {
+        if (!modalidadPago.equalsIgnoreCase("Cuotas Directas")) {
+            return "Pago al contado o crédito bancario.\n";
         }
-        return texto;
+        String cronograma = "";
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date fecha = formato.parse(fechaVenta);
+            Calendar calendario = Calendar.getInstance();
+            calendario.setTime(fecha);
+            double cuota = calcularMontoCuota();
+            for (int i = 1; i <= cantidadCuotas; i++) {
+                calendario.add(Calendar.MONTH, 1);
+                cronograma += "Cuota " + i
+                        + " | Monto: S/ "
+                        + String.format("%.2f", cuota)
+                        + " | Fecha de vencimiento: "
+                        + formato.format(calendario.getTime())
+                        + "\n";
+            }
+        } catch (Exception e) {
+            cronograma = "Error al calcular las fechas.";
+        }
+        return cronograma;
     }
+
     public String generarContrato() {
         return "CONTRATO DE COMPRA-VENTA" +
                 "\n\nCliente: " + cliente.getNombres() + " " + cliente.getApellidos() +
@@ -51,7 +62,11 @@ public class Venta {
                 "\nCRONOGRAMA DE PAGO:" +
                 "\n" + generarCronogramaCuotas() +
                 "\nEl comprador acepta las condiciones establecidas en el presente contrato.";
+        return contrato;
     }
+     public void mostrarVenta() {
+        System.out.println(generarContrato());
+
     
 }
     

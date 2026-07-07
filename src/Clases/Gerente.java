@@ -4,13 +4,15 @@
  */
 package Clases;
 
- public class Gerente extends Empleados{
+ public class Gerente extends Empleado {
      public Gerente(String dni, String nombres, String apellidos, String usuario, String contrasena) {
          super(dni, nombres, apellidos, usuario, contrasena, "Gerente"); 
  }
-  public String revisarEstadisticas(){
-      return "El gerente está revisando las estadísticas del sistema.";
- }
+  @Override
+  public void realizarTrabajo() {
+      System.out.println("Revisando estadísticas...");
+}
+ 
 
  @Override 
  public String mostrarInformacion() {

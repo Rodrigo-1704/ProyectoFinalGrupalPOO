@@ -6,6 +6,7 @@ package Interfaz;
 
 import java.awt.Color;
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.JButton;
 
 /**
  *
@@ -15,8 +16,17 @@ public class Interfaz_Main extends javax.swing.JFrame {
     private int mouseX;
     private int mouseY;
     private boolean maximized = true;
+    
     public Interfaz_Main() {
         initComponents();
+        for (JButton s : new JButton[]{btnMinimizar, btnMaximizar, btnCerrar}) {
+            s.setContentAreaFilled(false);
+            s.setBorderPainted(false);
+            s.setFocusPainted(false);
+            s.setOpaque(true);
+            s.setBackground(new Color(30, 30, 40));
+            s.setForeground(Color.WHITE);
+        }
         setExtendedState(Interfaz_Main.MAXIMIZED_BOTH);
         getContentPane().setBackground(new Color(18, 18, 24));
     }
@@ -34,12 +44,14 @@ public class Interfaz_Main extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
         btnMaximizar = new javax.swing.JButton();
+        btnMinimizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(18, 18, 25));
         setUndecorated(true);
 
         pnlBorde.setBackground(new java.awt.Color(30, 30, 40));
+        pnlBorde.setForeground(new java.awt.Color(255, 255, 255));
         pnlBorde.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 pnlBordeMouseDragged(evt);
@@ -75,9 +87,34 @@ public class Interfaz_Main extends javax.swing.JFrame {
         btnMaximizar.setBackground(new java.awt.Color(30, 30, 40));
         btnMaximizar.setForeground(new java.awt.Color(255, 255, 255));
         btnMaximizar.setText("❐");
+        btnMaximizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMaximizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMaximizarMouseExited(evt);
+            }
+        });
         btnMaximizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMaximizarActionPerformed(evt);
+            }
+        });
+
+        btnMinimizar.setBackground(new java.awt.Color(30, 30, 40));
+        btnMinimizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimizar.setText("—");
+        btnMinimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMinimizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMinimizarMouseExited(evt);
+            }
+        });
+        btnMinimizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinimizarActionPerformed(evt);
             }
         });
 
@@ -88,16 +125,21 @@ public class Interfaz_Main extends javax.swing.JFrame {
             .addGroup(pnlBordeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 525, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 830, Short.MAX_VALUE)
+                .addComponent(btnMinimizar)
+                .addGap(0, 0, 0)
                 .addComponent(btnMaximizar)
                 .addGap(0, 0, 0)
                 .addComponent(btnCerrar))
         );
         pnlBordeLayout.setVerticalGroup(
             pnlBordeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addGroup(pnlBordeLayout.createSequentialGroup()
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnMaximizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnMinimizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -110,7 +152,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlBorde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(485, Short.MAX_VALUE))
+                .addContainerGap(521, Short.MAX_VALUE))
         );
 
         pack();
@@ -134,12 +176,10 @@ public class Interfaz_Main extends javax.swing.JFrame {
 
     private void btnCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseExited
         btnCerrar.setBackground(new Color(30, 30, 40));
-        btnCerrar.setForeground(Color.WHITE);
     }//GEN-LAST:event_btnCerrarMouseExited
 
     private void btnCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseEntered
         btnCerrar.setBackground(new Color(232, 17, 35));
-        btnCerrar.setForeground(Color.WHITE);
     }//GEN-LAST:event_btnCerrarMouseEntered
 
     private void btnMaximizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaximizarActionPerformed
@@ -156,6 +196,26 @@ public class Interfaz_Main extends javax.swing.JFrame {
         maximized = true;
     }
     }//GEN-LAST:event_btnMaximizarActionPerformed
+    
+    private void btnMinimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizarActionPerformed
+        setState(Interfaz_Main.ICONIFIED);
+    }//GEN-LAST:event_btnMinimizarActionPerformed
+
+    private void btnMaximizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizarMouseEntered
+        btnMaximizar.setBackground(new Color(60, 60, 75));
+    }//GEN-LAST:event_btnMaximizarMouseEntered
+
+    private void btnMaximizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizarMouseExited
+        btnMaximizar.setBackground(new Color(30, 30, 40));
+    }//GEN-LAST:event_btnMaximizarMouseExited
+
+    private void btnMinimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizarMouseEntered
+        btnMinimizar.setBackground(new Color(60, 60, 75));
+    }//GEN-LAST:event_btnMinimizarMouseEntered
+
+    private void btnMinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizarMouseExited
+        btnMinimizar.setBackground(new Color(30, 30, 40));
+    }//GEN-LAST:event_btnMinimizarMouseExited
 
     /**
      * @param args the command line arguments
@@ -195,6 +255,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnMaximizar;
+    private javax.swing.JButton btnMinimizar;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlBorde;
     // End of variables declaration//GEN-END:variables

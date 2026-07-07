@@ -4,10 +4,18 @@
  */
 package Clases;
 
-/**
- *
- * @author rod17
- */
-public class AsesorVenta {
-    
+
+public class AsesorVenta extends Empleado {
+
+    public AsesorVenta(String dni, String nombres, String apellidos, String usuario, String contrasena) {
+        super(dni, nombres, apellidos, usuario, contrasena, "Asesor de Venta")
+    }
+    public String atenderCliente() {
+        return "El asesor de venta está atendiendo al cliente.";
+    }
+    @Override
+    public String mostrarInformacion() {
+        return super.mostrarInformacion() +
+               "\nFunción: Atención comercial y registro de ventas.";
+    }   
 }

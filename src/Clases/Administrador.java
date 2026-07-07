@@ -4,9 +4,9 @@
  */
 package Clases;
 
-public class Administrador extends Empleado {
+public class Administrador extends Empleados {
     public Administrador(String dni, String nombres, String apellidos, String usuario, String contraseña){
-        super(dni, nombres, apellidos, usuario, contraseña, "Administrador")
+        super(dni, nombres, apellidos, usuario, contraseña, "Administrador");
 }
     public String gestionarSistema() {
         return "El administrador está gestionando el sistema.";

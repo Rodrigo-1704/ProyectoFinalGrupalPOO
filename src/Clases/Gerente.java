@@ -4,7 +4,7 @@
  */
 package Clases;
 
- public class Gerente {
+ public class Gerente extends Empleados{
      public Gerente(String dni, String nombres, String apellidos, String usuario, String contrasena) {
          super(dni, nombres, apellidos, usuario, contrasena, "Gerente"); 
  }

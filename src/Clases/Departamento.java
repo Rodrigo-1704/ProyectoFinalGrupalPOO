@@ -22,9 +22,10 @@ public class Departamento {
     private String estado;
     private Acabados[] acabados;
     private int contadorAcabados;
+    private String ubicacion;
     
     //constructor
-    public Departamento(String codigoUnico, int numPiso, int numDepa, double areaM2, int numDormitorios, int numBanos, String tipo, double precioVenta, String estado, Acabados[] acabados, int contadorAcabados) {
+    public Departamento(String codigoUnico, int numPiso, int numDepa, double areaM2, int numDormitorios, int numBanos, String tipo, double precioVenta, String estado, Acabados[] acabados, int contadorAcabados, String ubicacion) {
         this.codigoUnico = codigoUnico;
         this.numPiso = numPiso;
         this.numDepa = numDepa;
@@ -36,6 +37,7 @@ public class Departamento {
         this.estado = "Disponible";
         this.acabados = new Acabados[10];
         this.contadorAcabados = contadorAcabados;
+        this.ubicacion = ubicacion;
     }
     
     //get and set
@@ -125,6 +127,14 @@ public class Departamento {
 
     public void setContadorAcabados(int contadorAcabados) {
         this.contadorAcabados = contadorAcabados;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
     
     //metodos

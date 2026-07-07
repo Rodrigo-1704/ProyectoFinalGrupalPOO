@@ -43,7 +43,7 @@ public class Cliente {
     public double getIngresos() {
         return ingresos;
     }
-    Public String mostrarInformacion() {
+    public String mostrarInformacion() {
         return "DNI : " + dni +
                "\nCliente: " + nombres + " " + apellidos +
                "\nFecha de nacimiento : " + fechaNacimiento +

@@ -13,7 +13,7 @@ public class Empleados {
     private String contrasena;
     private String rol;
    
-    public Empleado(String dni, String nombres, String apellidos, String usuario, String contrasena, String rol) {
+    public Empleados(String dni, String nombres, String apellidos, String usuario, String contrasena, String rol) {
         this.dni = dni;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -74,6 +74,7 @@ public class Empleados {
                "\nNombres :" + apellidos +
                "\nUsuario :" + usuario +
                "\nRol :" + rol;
+    }
         
             
             

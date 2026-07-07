@@ -36,7 +36,7 @@ public class Reserva {
     public String mostrarReserva() {
         return "RESERVA DE DEPARTAMENTO" +
                 "\nCliente: " + cliente.getNombres() + " " + cliente.getApellidos() +
-                "\nDepartamento: " + departamento.getNumero() +
+                "\nDepartamento: " + departamento.getNumDepa() +
                 "\nMonto pagado: S/ " + montoPagado +
                 "\nFecha de vigencia: " + fechaVigencia;
     }

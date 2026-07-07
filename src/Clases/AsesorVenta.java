@@ -5,10 +5,10 @@
 package Clases;
 
 
-public class AsesorVenta extends Empleado {
+public class AsesorVenta extends Empleados {
 
     public AsesorVenta(String dni, String nombres, String apellidos, String usuario, String contrasena) {
-        super(dni, nombres, apellidos, usuario, contrasena, "Asesor de Venta")
+        super(dni, nombres, apellidos, usuario, contrasena, "Asesor de Venta");
     }
     public String atenderCliente() {
         return "El asesor de venta está atendiendo al cliente.";

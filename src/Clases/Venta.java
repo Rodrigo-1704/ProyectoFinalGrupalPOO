@@ -22,7 +22,7 @@ public class Venta {
 
     public double calcularMontoCuota() {
         if (modalidadPago.equalsIgnoreCase("Cuotas Directas") && cantidadCuotas > 0) {
-            return departamento.getPrecio() / cantidadCuotas;
+            return departamento.getPrecioVenta() / cantidadCuotas;
         }
         return 0;   
     }
@@ -44,9 +44,9 @@ public class Venta {
         return "CONTRATO DE COMPRA-VENTA" +
                 "\n\nCliente: " + cliente.getNombres() + " " + cliente.getApellidos() +
                 "\nDNI: " + cliente.getDni() +
-                "\nDepartamento: " + departamento.getNumero() +
+                "\nDepartamento: " + departamento.getNumDepa() +
                 "\nUbicación: " + departamento.getUbicacion() +
-                "\nPrecio total: S/ " + departamento.getPrecio() +
+                "\nPrecio total: S/ " + departamento.getPrecioVenta() +
                 "\nModalidad de pago: " + modalidadPago +
                 "\nFecha de venta: " + fechaVenta +
                 "\nCRONOGRAMA DE PAGO:" +

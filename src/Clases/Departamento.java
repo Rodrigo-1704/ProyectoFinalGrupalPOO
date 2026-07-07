@@ -25,7 +25,7 @@ public class Departamento {
     private String ubicacion;
     
     //constructor
-    public Departamento(String codigoUnico, int numPiso, int numDepa, double areaM2, int numDormitorios, int numBanos, String tipo, double precioVenta, String estado, Acabados[] acabados, int contadorAcabados, String ubicacion) {
+    public Departamento(String codigoUnico, int numPiso, int numDepa, double areaM2, int numDormitorios, int numBanos, String tipo, double precioVenta, String ubicacion) {
         this.codigoUnico = codigoUnico;
         this.numPiso = numPiso;
         this.numDepa = numDepa;

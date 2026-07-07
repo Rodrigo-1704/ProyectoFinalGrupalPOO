@@ -11,8 +11,7 @@ public class Venta {
     private String fechaVenta;
     private int cantidadCuotas;
    
-    public Venta(Cliente cliente, Departamento departamento, String modalidadPago,
-                 String fechaVenta, int cantidadCuotas) {
+    public Venta(Cliente cliente, Departamento departamento, String modalidadPago,String fechaVenta, int cantidadCuotas) {
         this.cliente = cliente;
         this.departamento = departamento;
         this.modalidadPago = modalidadPago;

@@ -8,6 +8,6 @@ package Clases;
  *
  * @author rod17
  */
-public class ClientePotencial {
+public class Cliente {
     
 }

@@ -1,3 +1,6 @@
+
+package Clases;
+
 import Clases.AsesorVenta;
 import Clases.Cliente;
 import Clases.Departamento;
@@ -17,7 +20,7 @@ public class Venta {
     private int numeroCuotas;
     private double montoPagado;
 
-    public Venta(Reserva reserva, Cliente cliente, Departamento departamento, AsesorVenta asesor, String modalidadPago, String fechaVenta, double cuotaInicial, int numeroCuotas, double montoPagado) {
+    public Venta(Reserva reserva, AsesorVenta asesor, String modalidadPago, String fechaVenta, double cuotaInicial, int numeroCuotas) {
         this.reserva = reserva;
         this.cliente = reserva.getCliente();
         this.departamento = reserva.getDepartamento();
@@ -99,8 +102,4 @@ public class Venta {
     public void mostrarVenta() {
         System.out.println(generarContrato());
     }
-
-
-    
-    
 }

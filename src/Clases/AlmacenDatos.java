@@ -11,7 +11,7 @@ package Clases;
 public class AlmacenDatos {
     
     //atributos
-    private Empleados[] empleados;
+    private Empleado[] empleados;
     private Proyecto[] proyectos;
     private Cliente[] clientes;
     private Reserva[] reservas;
@@ -24,7 +24,7 @@ public class AlmacenDatos {
     
     //constructor
     public AlmacenDatos() {
-        this.empleados = new Empleados[50]; 
+        this.empleados = new Empleado[50]; 
         this.proyectos = new Proyecto[20];
         this.clientes = new Cliente[200];
         this.reservas = new Reserva[200];
@@ -37,11 +37,11 @@ public class AlmacenDatos {
     }
     
     //get and set
-    public Empleados[] getEmpleados() {
+    public Empleado[] getEmpleados() {
         return empleados;
     }
 
-    public void setEmpleados(Empleados[] empleados) {
+    public void setEmpleados(Empleado[] empleados) {
         this.empleados = empleados;
     }
 
@@ -119,13 +119,26 @@ public class AlmacenDatos {
     
     
     //metodos
-    public void agregarEmpleado(Empleados emp) {
+    public void agregarEmpleado(Empleado emp) {
         if (contEmpleados < empleados.length) {
             empleados[contEmpleados] = emp;
             contEmpleados++;
             return;
         }
         return;
+    }
+    
+    public boolean modificarEmpleado(String dni, String nuevosNombres, String nuevosApellidos, String nuevoUsuario, String nuevaContrasena) {
+        for (int i = 0; i < contEmpleados; i++) {
+            if (empleados[i].getDni().equals(dni)) {
+                empleados[i].setNombres(nuevosNombres);
+                empleados[i].setApellidos(nuevosApellidos);
+                empleados[i].setUsuario(nuevoUsuario);
+                empleados[i].setContrasena(nuevaContrasena);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void agregarProyecto(Proyecto proy) {
@@ -135,6 +148,17 @@ public class AlmacenDatos {
             return;
         }
         return;
+    }
+    
+    public boolean modificarProyecto(String nombreProyecto, String nuevaDireccion, String nuevoDistrito, String nuevoEstado) {
+        Proyecto p = buscarProyecto(nombreProyecto);
+        if (p != null) {
+            p.setDireccion(nuevaDireccion);
+            p.setDistrito(nuevoDistrito);
+            p.setEstadoProyecto(nuevoEstado);
+            return true;
+        }
+        return false;
     }
 
     public Proyecto buscarProyecto(String nombre) {
@@ -146,7 +170,37 @@ public class AlmacenDatos {
         return null;
     }
     
-    public Empleados verificarLogin(String user, String pass) {
+    public boolean modificarCliente(String dni, String nuevosNombres, String nuevosApellidos, String nuevoEstadoCivil, String nuevaOcupacion, double nuevosIngresos, String nuevoTelefono, String nuevoCorreo) {
+        for (int i = 0; i < contClientes; i++) {
+            if (clientes[i].getDni().equals(dni)) {
+                clientes[i].setNombres(nuevosNombres);
+                clientes[i].setApellidos(nuevosApellidos);
+                clientes[i].setEstadoCivil(nuevoEstadoCivil);
+                clientes[i].setOcupacion(nuevaOcupacion);
+                clientes[i].setIngresosMensuales(nuevosIngresos);
+                clientes[i].setTelefono(nuevoTelefono);
+                clientes[i].setCorreo(nuevoCorreo);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean modificarEstadoDepartamento(String nombreProyecto, int numDepa, String nuevoEstado) {
+        Proyecto p = buscarProyecto(nombreProyecto);
+        if (p == null) return false;
+
+        Departamento[] depas = p.getDepartamentos(); // Corregido el nombre del método en español
+        for (int i = 0; i < p.getContadorDepartamentos(); i++) {
+            if (depas[i].getNumDepa() == numDepa) {
+                depas[i].setEstado(nuevoEstado);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Empleado verificarLogin(String user, String pass) {
         for (int i = 0; i < contEmpleados; i++) {
             if (empleados[i].getUsuario().equals(user) && empleados[i].getContrasena().equals(pass)) {
                 return empleados[i]; // Aplica polimorfismo retornando el rol específico

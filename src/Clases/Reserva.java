@@ -27,16 +27,13 @@ public class Reserva {
     public String mostrarReserva() {
         return "\nDepartamento: " +
                 "RESERVA" +
-                "\nCliente: " + cliente.getNombres() + " " + cliente.getApellidos() + departamento.getdepartamento() +
+                "\nCliente: " + cliente.getNombres() + " " + cliente.getApellidos() + departamento.getNumDepa() +
                 "\nMonto separación: S/ " + montoPagado +
                 "\nFecha vigencia: " + fechaVigencia +
                 "\nVigente: " + vigente +
                 "\nEstado departamento: " + departamento.getEstado();
-                                
-    
-    
- 
-}
+                                    
+    }
 
     public Cliente getCliente() {
         return cliente;

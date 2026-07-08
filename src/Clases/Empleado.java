@@ -3,12 +3,12 @@ package Clases;
 
 
 public abstract class Empleado {
-    private String dni;
-    private String nombres;
-    private String apellidos;
-    private String usuario;
-    private String contrasena;
-    private String rol;
+    protected String dni;
+    protected String nombres;
+    protected String apellidos;
+    protected String usuario;
+    protected String contrasena;
+    protected String rol;
    
     public Empleado(String dni, String nombres, String apellidos, String usuario, String contrasena, String rol) {
         this.dni = dni;

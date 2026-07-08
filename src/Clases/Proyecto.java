@@ -126,7 +126,7 @@ public class Proyecto {
                 vendidos++;
             }
         }
-        return ( vendidos / contadorDepartamentos) * 100.0;
+        return ((double) vendidos / contadorDepartamentos) * 100.0;
     }
 
 

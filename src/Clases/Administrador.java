@@ -3,7 +3,7 @@ package Clases;
 
 public class Administrador extends Empleado {
 
-    public Administrador(String dni, String nombres, String apellidos, String usuario, String contrasena, String rol) {
+    public Administrador(String dni, String nombres, String apellidos, String usuario, String contrasena) {
         super(dni, nombres, apellidos, usuario, contrasena, "Administrador");
     }
     @Override

@@ -36,7 +36,7 @@ public class Departamento {
         this.precioVenta = precioVenta;
         this.estado = "Disponible";
         this.acabados = new Acabados[10];
-        this.contadorAcabados = contadorAcabados;
+        this.contadorAcabados = 0;
         this.ubicacion = ubicacion;
     }
     

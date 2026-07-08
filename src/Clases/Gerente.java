@@ -4,15 +4,14 @@
  */
 package Clases;
 
- public class Gerente extends Empleado {
+public class Gerente extends Empleado {
      private String area;
-     private String bono;
+     private double bono;
 
-     public Gerente (String dni, String nombres, String apellidos, String Usuario, String contrasena, String area, String bono) {
-      super (dni, nombres, apellidos, usuario, contrasena, "Gerente");
-
-      this.area = area;
-      this.bono = bono;
+    public Gerente(String area, double bono, String dni, String nombres, String apellidos, String usuario, String contrasena, String rol) {
+        super(dni, nombres, apellidos, usuario, contrasena, rol);
+        this.area = area;
+        this.bono = bono;
     }
 
     public String getArea() {

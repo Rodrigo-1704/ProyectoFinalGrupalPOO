@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Clases;
 
 public class Reserva {
@@ -9,12 +6,33 @@ public class Reserva {
     private Departamento departamento;
     private double montoPagado;
     private String fechaVigencia;
-    
-    public Reserva(Cliente cliente, Departamento departamento, double montoPagado, String fechaVigencia) {
+    private boolean vigente;
+
+    public Reserva(Cliente cliente, Departamento departamento, double montoPagado, String fechaVigencia, boolean vigente) {
         this.cliente = cliente;
         this.departamento = departamento;
         this.montoPagado = montoPagado;
         this.fechaVigencia = fechaVigencia;
+        this.vigente = false;
+        
+    }
+    public boolean registrarReserva() {
+        if (departamento.getEstado().equalsIgnoreCase("Disponible")) {
+            departamento.setEstado("Reservado");
+            vigente = true;
+            return true;
+        }
+        return false;
+    }
+    public String mostrarReserva() {
+        return "\nDepartamento: " +
+                "RESERVA" +
+                "\nCliente: " + cliente.getNombres() + " " + cliente.getApellidos() + departamento.getNumDepa() +
+                "\nMonto separación: S/ " + montoPagado +
+                "\nFecha vigencia: " + fechaVigencia +
+                "\nVigente: " + vigente +
+                "\nEstado departamento: " + departamento.getEstado();
+                                    
     }
 
     public Cliente getCliente() {
@@ -33,11 +51,8 @@ public class Reserva {
         return fechaVigencia;
     }
 
-    public String mostrarReserva() {
-        return "RESERVA DE DEPARTAMENTO" +
-                "\nCliente: " + cliente.getNombres() + " " + cliente.getApellidos() +
-                "\nDepartamento: " + departamento.getNumDepa() +
-                "\nMonto pagado: S/ " + montoPagado +
-                "\nFecha de vigencia: " + fechaVigencia;
+    public boolean isVigente() {
+        return vigente;
     }
 }
+                                                

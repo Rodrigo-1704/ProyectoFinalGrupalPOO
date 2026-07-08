@@ -10,7 +10,7 @@ public abstract class Empleado {
     private String contrasena;
     private String rol;
    
-    public Empleados(String dni, String nombres, String apellidos, String usuario, String contrasena, String rol) {
+    public Empleado(String dni, String nombres, String apellidos, String usuario, String contrasena, String rol) {
         this.dni = dni;
         this.nombres = nombres;
         this.apellidos = apellidos;

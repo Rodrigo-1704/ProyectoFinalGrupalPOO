@@ -18,6 +18,20 @@ public abstract class Empleado {
         this.contrasena = contrasena;
         this.rol = rol;
     }
+    
+    public boolean login(String usuario, String contrasena){
+        return this.usuario.equals(usuario) && this.contrasena.equals(contrasena);
+    }
+    public abstract String obtenerPermisos ();
+    
+    
+    public String mostrarInformacion() {
+        return "DNI: " + dni +
+                "\nNombres: " + nombres +
+                "\nApellidos: " + apellidos +
+                "\nUsuario: " + usuario +
+                "\nRol: " + rol;
+    }
 
     public String getDni() {
         return dni;
@@ -50,7 +64,7 @@ public abstract class Empleado {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-
+    
     public String getContrasena() {
         return contrasena;
     }
@@ -66,14 +80,6 @@ public abstract class Empleado {
     public void setRol(String rol) {
         this.rol = rol;
     }
-    public String mostrarInformacion() {
-        return "DNI :" + dni +
-               "\nNombres :" + nombres +
-               "\nApellidos: " + apellidos +
-               "\nUsuario :" + usuario +
-               "\nRol :" + rol;
-    }
     
-    public abstract void realizarTrabajo();
-            
+         
 }

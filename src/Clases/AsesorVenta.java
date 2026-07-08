@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Clases;
 
 
@@ -11,12 +7,12 @@ public class AsesorVenta extends Empleado {
         super(dni, nombres, apellidos, usuario, contrasena, "Asesor de Venta");
     }
    @Override
-    public void realizarTrabajo() {
-        System.out.println("Atendiendo clientes...");
+    public String obtenerPermisos() {
+        return "Gestiona clientes, reservas, ventas y pagos.";
     }
     @Override
     public String mostrarInformacion() {
         return super.mostrarInformacion() +
-               "\nFunción: Atención comercial y registro de ventas.";
-    }   
+                "\nPermisos: " + obtenerPermisos();
+    } 
 }

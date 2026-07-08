@@ -11,6 +11,10 @@ public class Administrador extends Empleado {
     @Override
     public void realizarTrabajo() {
         System.out.println("Gestionando el sistema...");
+}
+    public String gestionarUsuarios() {
+        return "El administrador puede registrar, modificar y eliminar usuarios.";
+}
 
     @Override
     public String mostrarInformacion() {

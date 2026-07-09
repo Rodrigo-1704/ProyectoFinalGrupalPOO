@@ -21,7 +21,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
     
     public Interfaz_Main() {
         initComponents();
-        this.ad = ad;
+        this.ad = new AlmacenDatos();
         for (JButton s : new JButton[]{btnMinimizar, btnMaximizar, btnCerrar}) {
             s.setContentAreaFilled(false);
             s.setBorderPainted(false);
@@ -41,6 +41,10 @@ public class Interfaz_Main extends javax.swing.JFrame {
         
         setExtendedState(Interfaz_Main.MAXIMIZED_BOTH);
         getContentPane().setBackground(new Color(18, 18, 24));
+    }
+    public Interfaz_Main(AlmacenDatos ad) {
+        this();
+        this.ad = ad;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -354,7 +358,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
         pnlCuerpo.removeAll();
-        pnlEmpleados panel = new pnlEmpleados();
+        pnlEmpleados panel = new pnlEmpleados(ad);
         panel.setSize(pnlCuerpo.getSize());
         panel.setLocation(0, 0);
         pnlCuerpo.setLayout(new java.awt.BorderLayout());

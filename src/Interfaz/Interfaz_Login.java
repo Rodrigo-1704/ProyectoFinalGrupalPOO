@@ -213,7 +213,7 @@ public class Interfaz_Login extends javax.swing.JFrame {
         if (emp != null) {
 
             JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso");
-            Interfaz_Main mainWindow = new Interfaz_Main();
+            Interfaz_Main mainWindow = new Interfaz_Main(datos);
             mainWindow.setVisible(true);
             this.dispose();
         }

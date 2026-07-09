@@ -4,16 +4,30 @@
  */
 package Interfaz;
 
-import Clases.Empleado;
+import Clases.Administrador;
+import Clases.AsesorVenta;
+import Clases.Gerente;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import Clases.AlmacenDatos;
+import Clases.Empleado;
 
 /**
  *
  * @author LUCAS
  */
 public class pnlEmpleados extends javax.swing.JPanel {
-    public pnlEmpleados() {
+    private AlmacenDatos ad;
+    public pnlEmpleados(AlmacenDatos ad) {
         initComponents();
+        this.ad = ad;
+        aplicarTemaOscuro();
         cargarTabla();
     }
 
@@ -51,14 +65,25 @@ public class pnlEmpleados extends javax.swing.JPanel {
         btnBuscar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnNuevoEmpleado.setBackground(new java.awt.Color(45, 45, 55));
         btnNuevoEmpleado.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnNuevoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         btnNuevoEmpleado.setText("Nuevo Empleado +");
+        btnNuevoEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoEmpleadoActionPerformed(evt);
+            }
+        });
 
         scrlEmpleados.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
 
+        tblEmpleados.setBackground(new java.awt.Color(45, 45, 45));
         tblEmpleados.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -71,6 +96,8 @@ public class pnlEmpleados extends javax.swing.JPanel {
                 "DNI", "Nombres", "Apellidos", "Usuario", "Contraseña", "Rol"
             }
         ));
+        tblEmpleados.getTableHeader().setResizingAllowed(false);
+        tblEmpleados.getTableHeader().setReorderingAllowed(false);
         scrlEmpleados.setViewportView(tblEmpleados);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -110,12 +137,252 @@ public class pnlEmpleados extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNuevoEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEmpleadoActionPerformed
+        abrirFormularioNuevoEmpleado();
+    }//GEN-LAST:event_btnNuevoEmpleadoActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscarEmpleados();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+    
     private void cargarTabla() {
+        cargarTabla("");
+    }
 
-        DefaultTableModel modelo =
-                (DefaultTableModel) tblEmpleados.getModel();
+    private void buscarEmpleados() {
+        String textoBusqueda = txtBuscar.getText().trim();
+        cargarTabla(textoBusqueda);
+    }
 
-        
+    private void cargarTabla(String filtro) {
+        DefaultTableModel modelo = (DefaultTableModel) tblEmpleados.getModel();
+
+        modelo.setRowCount(0);
+
+        if (ad == null) {
+            return;
+        }
+
+        String busqueda = filtro.toLowerCase();
+
+        Empleado[] empleados = ad.getEmpleados();
+
+        for (int i = 0; i < ad.getContEmpleados(); i++) {
+            Empleado emp = empleados[i];
+
+            if (emp != null) {
+                String dni = emp.getDni();
+                String nombres = emp.getNombres();
+                String apellidos = emp.getApellidos();
+                String usuario = emp.getUsuario();
+                String rol = emp.getRol();
+
+                boolean coincide =
+                        busqueda.isEmpty()
+                        || dni.toLowerCase().contains(busqueda)
+                        || nombres.toLowerCase().contains(busqueda)
+                        || apellidos.toLowerCase().contains(busqueda)
+                        || usuario.toLowerCase().contains(busqueda)
+                        || rol.toLowerCase().contains(busqueda);
+
+                if (coincide) {
+                    modelo.addRow(new Object[]{
+                        emp.getDni(),
+                        emp.getNombres(),
+                        emp.getApellidos(),
+                        emp.getUsuario(),
+                        emp.getContrasena(),
+                        emp.getRol()
+                    });
+                }
+            }
+        }
+    }
+    
+    private void abrirFormularioNuevoEmpleado() {
+        JTextField txtDni = new JTextField();
+        JTextField txtNombres = new JTextField();
+        JTextField txtApellidos = new JTextField();
+        JTextField txtUsuario = new JTextField();
+        JTextField txtContrasena = new JTextField();
+
+        JComboBox<String> cmbRol = new JComboBox<>(new String[]{
+            "Administrador",
+            "Asesor de Venta",
+            "Gerente"
+        });
+
+        Object[] formulario = {
+            "DNI:", txtDni,
+            "Nombres:", txtNombres,
+            "Apellidos:", txtApellidos,
+            "Usuario:", txtUsuario,
+            "Contraseña:", txtContrasena,
+            "Rol:", cmbRol
+        };
+
+        int opcion = JOptionPane.showConfirmDialog(
+                this,
+                formulario,
+                "Nuevo Empleado",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (opcion == JOptionPane.OK_OPTION) {
+            String dni = txtDni.getText().trim();
+            String nombres = txtNombres.getText().trim();
+            String apellidos = txtApellidos.getText().trim();
+            String usuario = txtUsuario.getText().trim();
+            String contrasena = txtContrasena.getText().trim();
+            String rol = cmbRol.getSelectedItem().toString();
+
+            if (dni.isEmpty() || nombres.isEmpty() || apellidos.isEmpty()
+                    || usuario.isEmpty() || contrasena.isEmpty()) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Todos los campos son obligatorios.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            if (ad.getContEmpleados() >= ad.getEmpleados().length) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se pueden agregar más empleados.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            Empleado nuevoEmpleado;
+
+            switch (rol) {
+                case "Administrador":
+                    nuevoEmpleado = new Administrador(
+                            dni,
+                            nombres,
+                            apellidos,
+                            usuario,
+                            contrasena
+                    );
+                    break;
+
+                case "Asesor de Venta":
+                    nuevoEmpleado = new AsesorVenta(
+                            dni,
+                            nombres,
+                            apellidos,
+                            usuario,
+                            contrasena
+                    );
+                    break;
+
+                case "Gerente":
+                    nuevoEmpleado = new Gerente(
+                            "General",
+                            0.0,
+                            dni,
+                            nombres,
+                            apellidos,
+                            usuario,
+                            contrasena,
+                            "Gerente"
+                    );
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Rol no válido.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+            }
+
+            ad.agregarEmpleado(nuevoEmpleado);
+            cargarTabla();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Empleado agregado correctamente."
+            );
+        }
+    }
+    
+    private void aplicarTemaOscuro() {
+        Color fondoTabla = new Color(45, 45, 45);
+        Color fondoHeader = new Color(35, 35, 35);
+        Color texto = Color.WHITE;
+        Color seleccion = new Color(0, 120, 215);
+        Color grid = new Color(70, 70, 70);
+        txtBuscar.setForeground(Color.WHITE);
+        txtBuscar.setCaretColor(Color.WHITE);
+        tblEmpleados.setOpaque(true);
+        tblEmpleados.setFillsViewportHeight(true);
+        tblEmpleados.setBackground(fondoTabla);
+        tblEmpleados.setForeground(texto);
+        tblEmpleados.setGridColor(grid);
+        tblEmpleados.setSelectionBackground(seleccion);
+        tblEmpleados.setSelectionForeground(texto);
+        tblEmpleados.setRowHeight(26);
+        scrlEmpleados.setBackground(fondoTabla);
+        scrlEmpleados.getViewport().setOpaque(true);
+        scrlEmpleados.getViewport().setBackground(fondoTabla);
+        scrlEmpleados.setBorder(javax.swing.BorderFactory.createLineBorder(grid));
+        JTableHeader header = tblEmpleados.getTableHeader();
+        header.setOpaque(true);
+        header.setBackground(fondoHeader);
+        header.setForeground(texto);
+        header.setFont(new Font("Calibri", Font.BOLD, 12));
+        header.setReorderingAllowed(false);
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                java.awt.Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(fondoHeader);
+                c.setForeground(texto);
+                c.setFont(new Font("Calibri", Font.BOLD, 12));
+
+                if (c instanceof javax.swing.JComponent) {
+                    ((javax.swing.JComponent) c).setOpaque(true);
+                }
+
+                setHorizontalAlignment(CENTER);
+
+                return c;
+            }
+        });
+
+        tblEmpleados.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    javax.swing.JTable table,
+                    Object value,boolean isSelected,boolean hasFocus,int row,int column) {
+
+                java.awt.Component c = super.getTableCellRendererComponent(table, value,isSelected,hasFocus,row,column);
+
+                if (isSelected) {
+                    c.setBackground(seleccion);
+                    c.setForeground(texto);
+                } else {
+                    c.setBackground(fondoTabla);
+                    c.setForeground(texto);
+                }
+
+                if (c instanceof javax.swing.JComponent) {
+                    ((javax.swing.JComponent) c).setOpaque(true);
+                }
+
+                return c;
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -128,3 +395,4 @@ public class pnlEmpleados extends javax.swing.JPanel {
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
+

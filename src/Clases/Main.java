@@ -4,6 +4,8 @@
  */
 package Clases;
 
+import Interfaz.Interfaz_Login;
+
 /**
  *
  * @author rosan
@@ -14,7 +16,8 @@ public class Main {
     public static void main(String[] args) {
         // 1. Instanciamos el almacén global en memoria RAM
         AlmacenDatos ad = new AlmacenDatos();
-
+        Interfaz_Login login = new Interfaz_Login(ad);
+        login.setVisible(true);
 
         Administrador adminBase = new Administrador("11111111", "Carlos", "Mendoza", "admin", "1234");
         ad.agregarEmpleado(adminBase);
@@ -34,7 +37,7 @@ public class Main {
         System.out.println("Administrador cargado: " + adminBase.getNombres() + " " + adminBase.getApellidos());
         System.out.println("Proyecto en catálogo: " + ad.getProyectos()[0].getNombreProyecto() + " (" + ad.getProyectos()[0].getDistrito() + ")");
         
-
+        
         boolean loginCorrecto = (ad.verificarLogin("admin", "1234") != null);
         System.out.println("Verificación de Login Base ('admin'/'1234'): " + (loginCorrecto ? "OPERATIVO" : "ERROR"));
         System.out.println("=============================================");

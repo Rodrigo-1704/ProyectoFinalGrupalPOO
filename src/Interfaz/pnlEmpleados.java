@@ -4,17 +4,17 @@
  */
 package Interfaz;
 
+import Clases.Empleado;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author LUCAS
  */
 public class pnlEmpleados extends javax.swing.JPanel {
-
-    /**
-     * Creates new form pnlEmpleados
-     */
     public pnlEmpleados() {
         initComponents();
+        cargarTabla();
     }
 
     /**
@@ -26,19 +26,105 @@ public class pnlEmpleados extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblEmpleados = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnNuevoEmpleado = new javax.swing.JButton();
+        scrlEmpleados = new javax.swing.JScrollPane();
+        tblEmpleados = new javax.swing.JTable();
+
+        setBackground(new java.awt.Color(18, 18, 24));
+
+        lblEmpleados.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lblEmpleados.setForeground(new java.awt.Color(255, 255, 255));
+        lblEmpleados.setText("Empleados");
+
+        lblBuscar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lblBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        lblBuscar.setText("Buscar:");
+
+        txtBuscar.setBackground(new java.awt.Color(30, 30, 40));
+        txtBuscar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+
+        btnBuscar.setBackground(new java.awt.Color(45, 45, 55));
+        btnBuscar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("Buscar");
+
+        btnNuevoEmpleado.setBackground(new java.awt.Color(45, 45, 55));
+        btnNuevoEmpleado.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnNuevoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
+        btnNuevoEmpleado.setText("Nuevo Empleado +");
+
+        scrlEmpleados.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+
+        tblEmpleados.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "DNI", "Nombres", "Apellidos", "Usuario", "Contraseña", "Rol"
+            }
+        ));
+        scrlEmpleados.setViewportView(tblEmpleados);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNuevoEmpleado))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblEmpleados)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(scrlEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblEmpleados)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBuscar)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnNuevoEmpleado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrlEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+    private void cargarTabla() {
 
+        DefaultTableModel modelo =
+                (DefaultTableModel) tblEmpleados.getModel();
+
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnNuevoEmpleado;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblEmpleados;
+    private javax.swing.JScrollPane scrlEmpleados;
+    private javax.swing.JTable tblEmpleados;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

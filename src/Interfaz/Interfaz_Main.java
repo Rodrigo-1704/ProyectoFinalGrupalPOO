@@ -4,6 +4,7 @@
  */
 package Interfaz;
 
+import Clases.AlmacenDatos;
 import java.awt.Color;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JButton;
@@ -16,9 +17,11 @@ public class Interfaz_Main extends javax.swing.JFrame {
     private int mouseX;
     private int mouseY;
     private boolean maximized = true;
+    private AlmacenDatos ad;
     
     public Interfaz_Main() {
         initComponents();
+        this.ad = ad;
         for (JButton s : new JButton[]{btnMinimizar, btnMaximizar, btnCerrar}) {
             s.setContentAreaFilled(false);
             s.setBorderPainted(false);
@@ -39,7 +42,6 @@ public class Interfaz_Main extends javax.swing.JFrame {
         setExtendedState(Interfaz_Main.MAXIMIZED_BOTH);
         getContentPane().setBackground(new Color(18, 18, 24));
     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -351,7 +353,14 @@ public class Interfaz_Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMinimizarMouseExited
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
-        // TODO add your handling code here:
+        pnlCuerpo.removeAll();
+        pnlEmpleados panel = new pnlEmpleados();
+        panel.setSize(pnlCuerpo.getSize());
+        panel.setLocation(0, 0);
+        pnlCuerpo.setLayout(new java.awt.BorderLayout());
+        pnlCuerpo.add(panel, java.awt.BorderLayout.CENTER);
+        pnlCuerpo.revalidate();
+        pnlCuerpo.repaint();
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
     private void btnProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProyectosActionPerformed

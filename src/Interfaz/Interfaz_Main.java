@@ -4,6 +4,9 @@
  */
 package Interfaz;
 
+import Clases.Empleado;
+import Clases.Administrador;
+import javax.swing.JOptionPane;
 import Clases.AlmacenDatos;
 import java.awt.Color;
 import java.awt.geom.RoundRectangle2D;
@@ -17,6 +20,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
     private int mouseX;
     private int mouseY;
     private boolean maximized = true;
+    private Empleado empleadoActual;
     private AlmacenDatos ad;
     
     public Interfaz_Main() {
@@ -42,9 +46,44 @@ public class Interfaz_Main extends javax.swing.JFrame {
         setExtendedState(Interfaz_Main.MAXIMIZED_BOTH);
         getContentPane().setBackground(new Color(18, 18, 24));
     }
-    public Interfaz_Main(AlmacenDatos ad) {
-        this();
+    public Interfaz_Main(AlmacenDatos ad, Empleado empleadoActual) {
+        initComponents();
+
         this.ad = ad;
+        this.empleadoActual = empleadoActual;
+
+        for (JButton s : new JButton[]{btnMinimizar, btnMaximizar, btnCerrar}) {
+            s.setContentAreaFilled(false);
+            s.setBorderPainted(false);
+            s.setFocusPainted(false);
+            s.setOpaque(true);
+            s.setBackground(new Color(30, 30, 40));
+            s.setForeground(Color.WHITE);
+        }
+
+        for (JButton bl : new JButton[]{btnEmpleados, btnProyectos, btnApartamentos, btnClientes, btnReservaciones, btnVentas, btnReportes, btnLogout}) {
+            bl.setContentAreaFilled(false);
+            bl.setBorderPainted(false);
+            bl.setFocusPainted(false);
+            bl.setOpaque(true);
+            bl.setBackground(new Color(26, 26, 34));
+            bl.setForeground(Color.WHITE);
+        }
+
+        setExtendedState(Interfaz_Main.MAXIMIZED_BOTH);
+        getContentPane().setBackground(new Color(18, 18, 24));
+    }
+    private boolean esAdministrador() {
+        if (empleadoActual == null) {
+            return false;
+        }
+
+        if (empleadoActual instanceof Administrador) {
+            return true;
+        }
+
+        return empleadoActual.getRol() != null
+                && empleadoActual.getRol().equalsIgnoreCase("Administrador");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -357,6 +396,16 @@ public class Interfaz_Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMinimizarMouseExited
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
+        if (!esAdministrador()) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Acceso denegado. Solo los administradores pueden entrar a Empleados.",
+                "Sin permisos",
+                JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
         pnlCuerpo.removeAll();
         pnlEmpleados panel = new pnlEmpleados(ad);
         panel.setSize(pnlCuerpo.getSize());

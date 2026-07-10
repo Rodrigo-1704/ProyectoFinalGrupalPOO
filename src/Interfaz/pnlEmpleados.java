@@ -4,19 +4,23 @@
  */
 package Interfaz;
 
+//imports de clases
+import Clases.AlmacenDatos;
+import Clases.Empleado;
 import Clases.Administrador;
 import Clases.AsesorVenta;
 import Clases.Gerente;
+//imports para popup de añadido
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+//imports para modo oscuro
 import java.awt.Color;
 import java.awt.Font;
+//imports para tabla
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import Clases.AlmacenDatos;
-import Clases.Empleado;
 
 /**
  *

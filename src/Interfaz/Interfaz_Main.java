@@ -34,7 +34,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
             s.setBackground(new Color(30, 30, 40));
             s.setForeground(Color.WHITE);
         }
-        for (JButton bl : new JButton[]{btnEmpleados, btnProyectos, btnApartamentos, btnClientes, btnReservaciones, btnVentas, btnReportes, btnLogout}) {
+        for (JButton bl : new JButton[]{btnEmpleados, btnProyectos, btnAcabados, btnClientes, btnReservaciones, btnVentas, btnReportes, btnLogout}) {
             bl.setContentAreaFilled(false);
             bl.setBorderPainted(false);
             bl.setFocusPainted(false);
@@ -61,7 +61,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
             s.setForeground(Color.WHITE);
         }
 
-        for (JButton bl : new JButton[]{btnEmpleados, btnProyectos, btnApartamentos, btnClientes, btnReservaciones, btnVentas, btnReportes, btnLogout}) {
+        for (JButton bl : new JButton[]{btnEmpleados, btnProyectos, btnAcabados, btnClientes, btnReservaciones, btnVentas, btnReportes, btnLogout}) {
             bl.setContentAreaFilled(false);
             bl.setBorderPainted(false);
             bl.setFocusPainted(false);
@@ -102,7 +102,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
         pnlSidebar = new javax.swing.JPanel();
         btnEmpleados = new javax.swing.JButton();
         btnProyectos = new javax.swing.JButton();
-        btnApartamentos = new javax.swing.JButton();
+        btnAcabados = new javax.swing.JButton();
         btnClientes = new javax.swing.JButton();
         btnReservaciones = new javax.swing.JButton();
         btnVentas = new javax.swing.JButton();
@@ -224,10 +224,10 @@ public class Interfaz_Main extends javax.swing.JFrame {
             }
         });
 
-        btnApartamentos.setText("Apartamentos");
-        btnApartamentos.addActionListener(new java.awt.event.ActionListener() {
+        btnAcabados.setText("Acabados");
+        btnAcabados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnApartamentosActionPerformed(evt);
+                btnAcabadosActionPerformed(evt);
             }
         });
 
@@ -272,7 +272,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
             pnlSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnProyectos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnApartamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnAcabados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnReservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -286,7 +286,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(btnProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnApartamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAcabados, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -417,16 +417,36 @@ public class Interfaz_Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
     private void btnProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProyectosActionPerformed
-        // TODO add your handling code here:
+        if (!esAdministrador()) {
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Acceso denegado. Solo los administradores pueden entrar a Proyectos.",
+                "Sin permisos",
+                javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+        return;
+        }
+
+        pnlCuerpo.removeAll();
+
+        pnlProyectos panel = new pnlProyectos(ad, pnlCuerpo);
+        panel.setSize(pnlCuerpo.getSize());
+        panel.setLocation(0, 0);
+
+        pnlCuerpo.setLayout(new java.awt.BorderLayout());
+        pnlCuerpo.add(panel, java.awt.BorderLayout.CENTER);
+
+        pnlCuerpo.revalidate();
+        pnlCuerpo.repaint();
     }//GEN-LAST:event_btnProyectosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnClientesActionPerformed
 
-    private void btnApartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartamentosActionPerformed
+    private void btnAcabadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcabadosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnApartamentosActionPerformed
+    }//GEN-LAST:event_btnAcabadosActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         // TODO add your handling code here:
@@ -482,7 +502,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnApartamentos;
+    private javax.swing.JButton btnAcabados;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnEmpleados;

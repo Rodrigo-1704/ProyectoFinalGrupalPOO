@@ -4,10 +4,13 @@
  */
 package Interfaz;
 
-import Clases.Empleado;
+//import clases
 import Clases.Administrador;
-import javax.swing.JOptionPane;
 import Clases.AlmacenDatos;
+import Clases.AsesorVenta;
+import Clases.Empleado;
+//import looks
+import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JButton;
@@ -73,6 +76,7 @@ public class Interfaz_Main extends javax.swing.JFrame {
         setExtendedState(Interfaz_Main.MAXIMIZED_BOTH);
         getContentPane().setBackground(new Color(18, 18, 24));
     }
+    
     private boolean esAdministrador() {
         if (empleadoActual == null) {
             return false;
@@ -84,6 +88,19 @@ public class Interfaz_Main extends javax.swing.JFrame {
 
         return empleadoActual.getRol() != null
                 && empleadoActual.getRol().equalsIgnoreCase("Administrador");
+    }
+    
+    private boolean esAsesorVenta() {
+        if (empleadoActual == null) {
+            return false;
+        }
+
+        if (empleadoActual instanceof AsesorVenta) {
+            return true;
+        }
+
+        return empleadoActual.getRol() != null
+                && empleadoActual.getRol().equalsIgnoreCase("Asesor de Venta");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -441,7 +458,27 @@ public class Interfaz_Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProyectosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        // TODO add your handling code here:
+        if (!esAsesorVenta()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Acceso denegado. Solo los asesores de venta pueden entrar a Clientes.",
+                    "Sin permisos",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        pnlCuerpo.removeAll();
+
+        pnlClientes panel = new pnlClientes(ad);
+        panel.setSize(pnlCuerpo.getSize());
+        panel.setLocation(0, 0);
+
+        pnlCuerpo.setLayout(new java.awt.BorderLayout());
+        pnlCuerpo.add(panel, java.awt.BorderLayout.CENTER);
+
+        pnlCuerpo.revalidate();
+        pnlCuerpo.repaint();
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnAcabadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcabadosActionPerformed
@@ -453,7 +490,27 @@ public class Interfaz_Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void btnReservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservacionesActionPerformed
-        // TODO add your handling code here:
+        if (!esAsesorVenta()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Acceso denegado. Solo los asesores de venta pueden entrar a Reservaciones.",
+                    "Sin permisos",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        pnlCuerpo.removeAll();
+
+        pnlReservas panel = new pnlReservas(ad);
+        panel.setSize(pnlCuerpo.getSize());
+        panel.setLocation(0, 0);
+
+        pnlCuerpo.setLayout(new java.awt.BorderLayout());
+        pnlCuerpo.add(panel, java.awt.BorderLayout.CENTER);
+
+        pnlCuerpo.revalidate();
+        pnlCuerpo.repaint();
     }//GEN-LAST:event_btnReservacionesActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed

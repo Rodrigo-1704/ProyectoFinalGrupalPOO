@@ -31,6 +31,80 @@ public class Venta {
         this.numeroCuotas = numeroCuotas;
         this.montoPagado = cuotaInicial;
     }
+
+    public Reserva getReserva() {
+        return reserva;
+    }
+
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    public AsesorVenta getAsesor() {
+        return asesor;
+    }
+
+    public void setAsesor(AsesorVenta asesor) {
+        this.asesor = asesor;
+    }
+
+    public String getModalidadPago() {
+        return modalidadPago;
+    }
+
+    public void setModalidadPago(String modalidadPago) {
+        this.modalidadPago = modalidadPago;
+    }
+
+    public String getFechaVenta() {
+        return fechaVenta;
+    }
+
+    public void setFechaVenta(String fechaVenta) {
+        this.fechaVenta = fechaVenta;
+    }
+
+    public double getCuotaInicial() {
+        return cuotaInicial;
+    }
+
+    public void setCuotaInicial(double cuotaInicial) {
+        this.cuotaInicial = cuotaInicial;
+    }
+
+    public int getNumeroCuotas() {
+        return numeroCuotas;
+    }
+
+    public void setNumeroCuotas(int numeroCuotas) {
+        this.numeroCuotas = numeroCuotas;
+    }
+
+    public double getMontoPagado() {
+        return montoPagado;
+    }
+
+    public void setMontoPagado(double montoPagado) {
+        this.montoPagado = montoPagado;
+    }
+    
+    
     public boolean registrarVenta() {
         if (reserva.isVigente()
                 && departamento.getEstado().equalsIgnoreCase("Reservado")) {

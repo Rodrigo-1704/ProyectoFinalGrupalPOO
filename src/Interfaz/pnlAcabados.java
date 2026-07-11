@@ -11,7 +11,6 @@ import Clases.Departamento;
 import Clases.Proyecto;
 //imports para popup de añadido
 import java.util.ArrayList;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 //imports para modo oscuro

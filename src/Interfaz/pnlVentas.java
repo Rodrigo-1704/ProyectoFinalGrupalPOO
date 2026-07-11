@@ -25,6 +25,12 @@ import java.awt.Font;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+//imports guardado de contrato
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -466,11 +472,13 @@ public class pnlVentas extends javax.swing.JPanel {
             ventas[ad.getContVentas()] = nueva;
             ad.setContVentas(ad.getContVentas() + 1);
 
+            String rutaContrato = generarContratoAutomatico(nueva);
+
             cargarTabla();
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Venta registrada correctamente."
+                    "Venta registrada correctamente.\n\nContrato generado en:\n" + rutaContrato
             );
         }
     }
@@ -663,6 +671,43 @@ public class pnlVentas extends javax.swing.JPanel {
                 return c;
             }
         });
+    }
+    
+    private String generarContratoAutomatico(Venta venta) {
+        String contrato = venta.generarContrato();
+
+        File carpeta = new File("contratos");
+
+        if (!carpeta.exists()) {
+            carpeta.mkdir();
+        }
+
+        String fechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        String nombreArchivo = "Contrato_"
+                + venta.getCliente().getDni()
+                + "_Depa_"
+                + venta.getDepartamento().getNumDepa()
+                + "_"
+                + fechaHora
+                + ".txt";
+
+        File archivo = new File(carpeta, nombreArchivo);
+
+        try (PrintWriter writer = new PrintWriter(archivo)) {
+            writer.print(contrato);
+            return archivo.getAbsolutePath();
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "La venta fue registrada, pero no se pudo generar el contrato.",
+                    "Error al generar contrato",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            return "No generado";
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

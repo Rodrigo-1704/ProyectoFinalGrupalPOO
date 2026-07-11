@@ -211,20 +211,58 @@ public class Venta {
     
 
     public String generarContrato() {
-        return "========== CONTRATO DE COMPRA-VENTA ==========" +
-                "\nCliente: " + cliente.getNombres() + " " + cliente.getApellidos() +
-                "\nDNI: " + cliente.getDni() +
-                "\nDepartamento: " + departamento.getNumDepa() +
-                "\nPiso: " + departamento.getNumPiso() +
-                "\nTipo: " + departamento.getTipo() +
-                "\nÁrea: " + departamento.getAreaM2() + " m2" +
-                "\nPrecio base: S/ " + departamento.getPrecioVenta() +
-                "\nPrecio final con acabados: S/ " + departamento.calcularPrecioFinal() +
-                "\nModalidad de pago: " + modalidadPago +
-                "\nFecha de venta: " + fechaVenta +
-                "\nAsesor: " + asesor.getNombres() + " " + asesor.getApellidos() +
-                "\n\nCRONOGRAMA:\n" + generarCronogramaCuotas() +
-                "\nSaldo pendiente: S/ " + String.format("%.2f", calcularSaldoPendiente());
+        String contrato = "";
+
+        contrato += "====================================================\n";
+        contrato += "              CONTRATO DE COMPRA-VENTA\n";
+        contrato += "====================================================\n\n";
+
+        contrato += "DATOS DEL CLIENTE\n";
+        contrato += "DNI: " + cliente.getDni() + "\n";
+        contrato += "Nombres: " + cliente.getNombres() + "\n";
+        contrato += "Apellidos: " + cliente.getApellidos() + "\n";
+        contrato += "Teléfono: " + cliente.getTelefono() + "\n";
+        contrato += "Correo: " + cliente.getCorreo() + "\n\n";
+
+        contrato += "DATOS DEL DEPARTAMENTO\n";
+        contrato += "Código: " + departamento.getCodigoUnico() + "\n";
+        contrato += "Número: " + departamento.getNumDepa() + "\n";
+        contrato += "Piso: " + departamento.getNumPiso() + "\n";
+        contrato += "Área: " + departamento.getAreaM2() + " m²\n";
+        contrato += "Dormitorios: " + departamento.getNumDormitorios() + "\n";
+        contrato += "Baños: " + departamento.getNumBanos() + "\n";
+        contrato += "Tipo: " + departamento.getTipo() + "\n";
+        contrato += "Ubicación: " + departamento.getUbicacion() + "\n\n";
+
+        contrato += "PRECIO\n";
+        contrato += "Precio base: S/ " + String.format("%.2f", departamento.getPrecioVenta()) + "\n";
+        contrato += "Precio final con acabados: S/ " + String.format("%.2f", departamento.calcularPrecioFinal()) + "\n\n";
+
+        contrato += "DATOS DE LA VENTA\n";
+        contrato += "Fecha de venta: " + fechaVenta + "\n";
+        contrato += "Modalidad de pago: " + modalidadPago + "\n";
+        contrato += "Cuota inicial: S/ " + String.format("%.2f", cuotaInicial) + "\n";
+        contrato += "Número de cuotas: " + numeroCuotas + "\n";
+        contrato += "Monto pagado: S/ " + String.format("%.2f", montoPagado) + "\n";
+        contrato += "Saldo pendiente: S/ " + String.format("%.2f", calcularSaldoPendiente()) + "\n\n";
+
+        contrato += "ASESOR DE VENTA\n";
+        contrato += "DNI: " + asesor.getDni() + "\n";
+        contrato += "Nombre: " + asesor.getNombres() + " " + asesor.getApellidos() + "\n\n";
+
+        if (modalidadPago.equalsIgnoreCase("Cuotas Directas")) {
+            contrato += "CRONOGRAMA DE PAGOS\n";
+            contrato += generarCronogramaCuotas();
+            contrato += "\n";
+        }
+
+        contrato += "====================================================\n";
+        contrato += "FIRMAS\n\n";
+        contrato += "Cliente: ________________________________\n\n";
+        contrato += "Asesor:  ________________________________\n\n";
+        contrato += "====================================================\n";
+
+        return contrato;
     }
 
     public void mostrarVenta() {

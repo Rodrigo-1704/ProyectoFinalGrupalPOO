@@ -19,10 +19,20 @@ public class Main {
         Interfaz_Login login = new Interfaz_Login(ad);
         login.setVisible(true);
 
+        //Administrador
         Administrador adminBase = new Administrador("11111111", "Carlos", "Mendoza", "admin", "1234");
         ad.agregarEmpleado(adminBase);
+        
+        //Asesor de Venta
+        AsesorVenta ases = new AsesorVenta("22222222", "Ana", "Gomez", "Ventas", "4321");
+        ad.agregarEmpleado(ases);
+        
+        //Gerente
+        Gerente geren = new Gerente("Ventas", 1500.0, "33333333", "Luis", "Ramos","gerente","2468","Gerente");
+        ad.agregarEmpleado(geren);
 
 
+        //Proyecto
         Proyecto proyectoBase = new Proyecto("Torre El Sol", "Av. Javier Prado 1024", "Santiago de Surco", 12, "01/08/2026", "20/12/2027", "En planos");
         
         proyectoBase.registrarDepartamento(new Departamento("DEP-101", 1, 101, 75.5, 2, 2, "Flat", 280000.00, "Vista a la calle"));
@@ -30,7 +40,7 @@ public class Main {
         
         ad.agregarProyecto(proyectoBase);
 
-
+        
         System.out.println("=============================================");
         System.out.println("=== MOTOR INMOBILIARIO INICIALIZADO EN RAM ===");
         System.out.println("=============================================");

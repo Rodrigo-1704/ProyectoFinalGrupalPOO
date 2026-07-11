@@ -9,6 +9,7 @@ import Clases.Administrador;
 import Clases.AlmacenDatos;
 import Clases.AsesorVenta;
 import Clases.Empleado;
+import Clases.Gerente;
 //import looks
 import javax.swing.JOptionPane;
 import java.awt.Color;
@@ -101,6 +102,14 @@ public class Interfaz_Main extends javax.swing.JFrame {
 
         return empleadoActual.getRol() != null
                 && empleadoActual.getRol().equalsIgnoreCase("Asesor de Venta");
+    }
+    
+    private boolean esPersonalGerencial() {
+        if (empleadoActual == null) {
+            return false;
+        }
+
+        return empleadoActual instanceof Gerente;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -554,7 +563,27 @@ public class Interfaz_Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReservacionesActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        // TODO add your handling code here:
+        if (!esPersonalGerencial()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Acceso denegado. Solo el personal gerencial puede entrar a Reportes.",
+                    "Sin permisos",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        pnlCuerpo.removeAll();
+
+        pnlReportes panel = new pnlReportes(ad);
+        panel.setSize(pnlCuerpo.getSize());
+        panel.setLocation(0, 0);
+
+        pnlCuerpo.setLayout(new java.awt.BorderLayout());
+        pnlCuerpo.add(panel, java.awt.BorderLayout.CENTER);
+
+        pnlCuerpo.revalidate();
+        pnlCuerpo.repaint();
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed

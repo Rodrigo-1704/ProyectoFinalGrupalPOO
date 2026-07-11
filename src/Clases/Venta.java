@@ -19,6 +19,7 @@ public class Venta {
     private double cuotaInicial;
     private int numeroCuotas;
     private double montoPagado;
+    private CuotaPago[] cronogramaPagos;
 
     public Venta(Reserva reserva, AsesorVenta asesor, String modalidadPago, String fechaVenta, double cuotaInicial, int numeroCuotas) {
         this.reserva = reserva;
@@ -30,6 +31,7 @@ public class Venta {
         this.cuotaInicial = cuotaInicial;
         this.numeroCuotas = numeroCuotas;
         this.montoPagado = cuotaInicial;
+        generarCronogramaPagos();
     }
 
     public Reserva getReserva() {
@@ -122,40 +124,91 @@ public class Venta {
         return 0;
     }
     
-    public void registrarPagoParcial(double monto) {
-        if (monto > 0) {
-            montoPagado += monto;
+    public CuotaPago[] getCronogramaPagos() {
+        return cronogramaPagos;
+    }
+    
+    private void generarCronogramaPagos() {
+        if (!modalidadPago.equalsIgnoreCase("Cuotas Directas") || numeroCuotas <= 0) {
+            cronogramaPagos = new CuotaPago[0];
+            return;
         }
-    }
-    public double calcularSaldoPendiente() {
-        return departamento.getPrecioVenta() - montoPagado;
-    }
-     public String generarCronogramaCuotas() {
-        if (!modalidadPago.equalsIgnoreCase("Cuotas Directas")) {
-            return "No hay cronograma de cuotas directas.\n";
-        }String cronograma = "";
+
+        cronogramaPagos = new CuotaPago[numeroCuotas];
+
         try {
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            formato.setLenient(false);
+
             Date fecha = formato.parse(fechaVenta);
             Calendar calendario = Calendar.getInstance();
             calendario.setTime(fecha);
 
-            double cuota = calcularMontoCuota();
+            double montoCuota = calcularMontoCuota();
 
-            for (int i = 1; i <= numeroCuotas; i++) {
+            for (int i = 0; i < numeroCuotas; i++) {
                 calendario.add(Calendar.MONTH, 1);
-
-                cronograma += "Cuota " + i +
-                        " | Monto: S/ " + String.format("%.2f", cuota) +
-                        " | Vence: " + formato.format(calendario.getTime()) +
-                        "\n";
+                cronogramaPagos[i] = new CuotaPago(i + 1,montoCuota,formato.format(calendario.getTime()));
             }
+
         } catch (Exception e) {
-            cronograma = "Error al calcular fechas de vencimiento.\n";
+            cronogramaPagos = new CuotaPago[0];
+        }
+    }
+    
+    public boolean registrarPagoParcial(int numeroCuota, double monto) {
+        if (!modalidadPago.equalsIgnoreCase("Cuotas Directas")) {
+            return false;
+        }
+
+        if (cronogramaPagos == null || numeroCuota <= 0 || numeroCuota > cronogramaPagos.length) {
+            return false;
+        }
+
+        CuotaPago cuota = cronogramaPagos[numeroCuota - 1];
+
+        boolean registrado = cuota.registrarPago(monto);
+
+        if (registrado) {
+            montoPagado += monto;
+        }
+
+        return registrado;
+    }
+    
+    public double calcularSaldoPendiente() {
+        double saldo = departamento.getPrecioVenta() - montoPagado;
+
+        if (saldo < 0) {
+            return 0;
+        }
+
+        return saldo;
+    }
+    
+     public String generarCronogramaCuotas() {
+        if (!modalidadPago.equalsIgnoreCase("Cuotas Directas")) {
+            return "No hay cronograma de cuotas directas.\n";
+        }
+
+        if (cronogramaPagos == null || cronogramaPagos.length == 0) {
+            return "No se pudo generar el cronograma. Verifique la fecha de venta.\n";
+        }
+
+        String cronograma = "";
+
+        for (CuotaPago cuota : cronogramaPagos) {
+            cronograma += "Cuota " + cuota.getNumeroCuota()
+                    + " | Monto: S/ " + String.format("%.2f", cuota.getMontoCuota())
+                    + " | Pagado: S/ " + String.format("%.2f", cuota.getMontoPagado())
+                    + " | Saldo cuota: S/ " + String.format("%.2f", cuota.getSaldoCuota())
+                    + " | Vence: " + cuota.getFechaVencimiento()
+                    + "\n";
         }
 
         return cronograma;
     }
+    
 
     public String generarContrato() {
         return "========== CONTRATO DE COMPRA-VENTA ==========" +

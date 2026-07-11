@@ -41,10 +41,6 @@ public class pnlVentas extends javax.swing.JPanel {
         configurarTabla();
         aplicarTemaOscuro();
         cargarTabla();
-
-        btnBuscar.addActionListener(e -> buscarVentas());
-        txtBuscar.addActionListener(e -> buscarVentas());
-        btnNuevaVenta.addActionListener(e -> abrirFormularioNuevaVenta());
     }
 
     /**

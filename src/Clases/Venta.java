@@ -118,7 +118,7 @@ public class Venta {
     
     public double calcularMontoCuota() {
         if (modalidadPago.equalsIgnoreCase("Cuotas Directas")&& numeroCuotas > 0){
-            double saldo = departamento.getPrecioVenta() - cuotaInicial;
+            double saldo = departamento.calcularPrecioFinal() - cuotaInicial;
             return saldo / numeroCuotas;
         }
         return 0;
@@ -177,7 +177,7 @@ public class Venta {
     }
     
     public double calcularSaldoPendiente() {
-        double saldo = departamento.getPrecioVenta() - montoPagado;
+        double saldo = departamento.calcularPrecioFinal() - montoPagado;
 
         if (saldo < 0) {
             return 0;
@@ -218,7 +218,8 @@ public class Venta {
                 "\nPiso: " + departamento.getNumPiso() +
                 "\nTipo: " + departamento.getTipo() +
                 "\nÁrea: " + departamento.getAreaM2() + " m2" +
-                "\nPrecio total: S/ " + departamento.getPrecioVenta() +
+                "\nPrecio base: S/ " + departamento.getPrecioVenta() +
+                "\nPrecio final con acabados: S/ " + departamento.calcularPrecioFinal() +
                 "\nModalidad de pago: " + modalidadPago +
                 "\nFecha de venta: " + fechaVenta +
                 "\nAsesor: " + asesor.getNombres() + " " + asesor.getApellidos() +

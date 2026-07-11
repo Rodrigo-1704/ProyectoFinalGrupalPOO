@@ -482,7 +482,27 @@ public class Interfaz_Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnAcabadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcabadosActionPerformed
-        // TODO add your handling code here:
+        if (!esAsesorVenta()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Acceso denegado. Solo los asesores de venta pueden entrar a Acabados.",
+                    "Sin permisos",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        pnlCuerpo.removeAll();
+
+        pnlAcabados panel = new pnlAcabados(ad);
+        panel.setSize(pnlCuerpo.getSize());
+        panel.setLocation(0, 0);
+
+        pnlCuerpo.setLayout(new java.awt.BorderLayout());
+        pnlCuerpo.add(panel, java.awt.BorderLayout.CENTER);
+
+        pnlCuerpo.revalidate();
+        pnlCuerpo.repaint();
     }//GEN-LAST:event_btnAcabadosActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed

@@ -255,7 +255,7 @@ public class pnlVentas extends javax.swing.JPanel {
                         dni,
                         proyecto,
                         dep.getNumDepa(),
-                        dep.getPrecioVenta(),
+                        dep.calcularPrecioFinal(),
                         venta.getModalidadPago(),
                         venta.getFechaVenta(),
                         venta.getCuotaInicial(),
@@ -342,7 +342,7 @@ public class pnlVentas extends javax.swing.JPanel {
                         + " - " + cli.getNombres() + " " + cli.getApellidos()
                         + " | " + proyecto
                         + " | Depa " + dep.getNumDepa()
-                        + " | S/ " + dep.getPrecioVenta()
+                        + " | S/ " + dep.calcularPrecioFinal()
                 );
             }
         }

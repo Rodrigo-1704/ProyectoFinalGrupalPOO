@@ -324,7 +324,7 @@ public class pnlReservas extends javax.swing.JPanel {
                                 proy.getNombreProyecto()
                                 + " | Depa " + dep.getNumDepa()
                                 + " | " + dep.getCodigoUnico()
-                                + " | S/ " + dep.getPrecioVenta()
+                                + " | S/ " + dep.calcularPrecioFinal()
                         );
                     }
                 }

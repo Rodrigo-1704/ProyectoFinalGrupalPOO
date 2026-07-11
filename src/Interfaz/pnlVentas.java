@@ -8,6 +8,7 @@ package Interfaz;
 import Clases.AlmacenDatos;
 import Clases.AsesorVenta;
 import Clases.Cliente;
+import Clases.CuotaPago;
 import Clases.Departamento;
 import Clases.Proyecto;
 import Clases.Reserva;
@@ -32,6 +33,7 @@ import javax.swing.table.JTableHeader;
 public class pnlVentas extends javax.swing.JPanel {
     private AlmacenDatos ad;
     private AsesorVenta asesorActual;
+    private ArrayList<Venta> ventasMostradas = new ArrayList<>();
     public pnlVentas(AlmacenDatos ad, AsesorVenta asesorActual) {
         initComponents();
 
@@ -59,6 +61,7 @@ public class pnlVentas extends javax.swing.JPanel {
         btnNuevaVenta = new javax.swing.JButton();
         scrlVentas = new javax.swing.JScrollPane();
         tblVentas = new javax.swing.JTable();
+        btnRegistrarPago = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(18, 18, 24));
 
@@ -112,6 +115,16 @@ public class pnlVentas extends javax.swing.JPanel {
         tblVentas.getTableHeader().setReorderingAllowed(false);
         scrlVentas.setViewportView(tblVentas);
 
+        btnRegistrarPago.setBackground(new java.awt.Color(45, 45, 55));
+        btnRegistrarPago.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        btnRegistrarPago.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarPago.setText("Registrar Pago");
+        btnRegistrarPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarPagoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,6 +132,10 @@ public class pnlVentas extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrlVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblVentas)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -126,11 +143,9 @@ public class pnlVentas extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNuevaVenta))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblVentas)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrlVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
+                        .addComponent(btnNuevaVenta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRegistrarPago, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -143,7 +158,8 @@ public class pnlVentas extends javax.swing.JPanel {
                     .addComponent(lblBuscar)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
-                    .addComponent(btnNuevaVenta))
+                    .addComponent(btnNuevaVenta)
+                    .addComponent(btnRegistrarPago))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrlVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                 .addContainerGap())
@@ -157,6 +173,10 @@ public class pnlVentas extends javax.swing.JPanel {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         buscarVentas();
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRegistrarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPagoActionPerformed
+        registrarPagoSeleccionado();
+    }//GEN-LAST:event_btnRegistrarPagoActionPerformed
     
     private void configurarTabla() {
         DefaultTableModel modelo = new DefaultTableModel(
@@ -195,7 +215,8 @@ public class pnlVentas extends javax.swing.JPanel {
     private void cargarTabla(String filtro) {
         DefaultTableModel modelo = (DefaultTableModel) tblVentas.getModel();
         modelo.setRowCount(0);
-
+        ventasMostradas.clear();
+        
         if (ad == null) {
             return;
         }
@@ -228,6 +249,7 @@ public class pnlVentas extends javax.swing.JPanel {
                         || fecha.toLowerCase().contains(busqueda);
 
                 if (coincide) {
+                    ventasMostradas.add(venta);
                     modelo.addRow(new Object[]{
                         cliente,
                         dni,
@@ -452,6 +474,127 @@ public class pnlVentas extends javax.swing.JPanel {
             );
         }
     }
+    private void registrarPagoSeleccionado() {
+        int fila = tblVentas.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Seleccione una venta.",
+                    "Sin selección",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        int filaModelo = tblVentas.convertRowIndexToModel(fila);
+
+        if (filaModelo < 0 || filaModelo >= ventasMostradas.size()) {
+            return;
+        }
+
+        Venta venta = ventasMostradas.get(filaModelo);
+
+        if (!venta.getModalidadPago().equalsIgnoreCase("Cuotas Directas")) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Solo las ventas en cuotas directas permiten pagos parciales.",
+                    "No aplica",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        CuotaPago[] cuotas = venta.getCronogramaPagos();
+
+        if (cuotas == null || cuotas.length == 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Esta venta no tiene cronograma de pagos.",
+                    "Sin cronograma",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        JComboBox<String> cmbCuotas = new JComboBox<>();
+
+        for (CuotaPago cuota : cuotas) {
+            cmbCuotas.addItem(
+                    "Cuota " + cuota.getNumeroCuota()
+                    + " | Vence: " + cuota.getFechaVencimiento()
+                    + " | Monto: S/ " + String.format("%.2f", cuota.getMontoCuota())
+                    + " | Pagado: S/ " + String.format("%.2f", cuota.getMontoPagado())
+                    + " | Saldo: S/ " + String.format("%.2f", cuota.getSaldoCuota())
+            );
+        }
+
+        JTextField txtMonto = new JTextField();
+
+        Object[] formulario = {
+            "Cuota:", cmbCuotas,
+            "Monto a pagar:", txtMonto
+        };
+
+        int opcion = JOptionPane.showConfirmDialog(
+                this,
+                formulario,
+                "Registrar Pago Parcial",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (opcion == JOptionPane.OK_OPTION) {
+            String montoTexto = txtMonto.getText().trim();
+
+            if (montoTexto.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Ingrese un monto.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            double monto;
+
+            try {
+                monto = Double.parseDouble(montoTexto);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "El monto debe ser numérico.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            int indiceCuota = cmbCuotas.getSelectedIndex();
+            int numeroCuota = cuotas[indiceCuota].getNumeroCuota();
+
+            boolean registrado = venta.registrarPagoParcial(numeroCuota, monto);
+
+            if (!registrado) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se pudo registrar el pago. Verifique que el monto no exceda el saldo de la cuota.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            cargarTabla();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Pago registrado correctamente.\n\nSaldo pendiente total: S/ "
+                    + String.format("%.2f", venta.calcularSaldoPendiente())
+            );
+        }
+    }
     
     private void aplicarTemaOscuro() {
         Color fondoTabla = new Color(45, 45, 45);
@@ -525,6 +668,7 @@ public class pnlVentas extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnNuevaVenta;
+    private javax.swing.JButton btnRegistrarPago;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblVentas;
     private javax.swing.JScrollPane scrlVentas;

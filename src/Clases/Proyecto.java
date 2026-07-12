@@ -8,7 +8,7 @@ package Clases;
  *
  * @author rod17
  */
-public class Proyecto {
+public class Proyecto implements Reportable{
     
     //atributos
     private String nombreProyecto;
@@ -127,6 +127,24 @@ public class Proyecto {
             }
         }
         return ((double) vendidos / contadorDepartamentos) * 100.0;
+    }
+
+    @Override
+    public String generarReporte() {
+     int disponibles = 0;
+     int reservados = 0;
+     int vendidos = 0;
+    for (int i = 0; i < contadorDepartamentos; i++) {
+        String est = departamentos[i].getEstado();
+        if (est.equalsIgnoreCase("Disponible")) disponibles++;
+        else if (est.equalsIgnoreCase("Reservado")) reservados++;
+        else if (est.equalsIgnoreCase("Vendido")) vendidos++;
+    }
+    return "Reporte del Proyecto: " + nombreProyecto +
+           "\nDisponibles: " + disponibles +
+           "\nReservados: " + reservados +
+           "\nVendidos: " + vendidos +
+           "\n% Ventas: " + calcularPorcentajeVentas() + "%";
     }
 
 

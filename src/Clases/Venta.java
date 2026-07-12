@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Venta {
+public class Venta implements Reportable{
     private Reserva reserva;
     private Cliente cliente;
     private Departamento departamento;
@@ -267,5 +267,10 @@ public class Venta {
 
     public void mostrarVenta() {
         System.out.println(generarContrato());
+    }
+
+    @Override
+    public String generarReporte() {
+        return generarContrato();
     }
 }

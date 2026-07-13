@@ -190,7 +190,7 @@ public class AlmacenDatos {
         Proyecto p = buscarProyecto(nombreProyecto);
         if (p == null) return false;
 
-        Departamento[] depas = p.getDepartamentos(); // Corregido el nombre del método en español
+        Departamento[] depas = p.getDepartamentos(); 
         for (int i = 0; i < p.getContadorDepartamentos(); i++) {
             if (depas[i].getNumDepa() == numDepa) {
                 depas[i].setEstado(nuevoEstado);
@@ -203,7 +203,7 @@ public class AlmacenDatos {
     public Empleado verificarLogin(String user, String pass) {
         for (int i = 0; i < contEmpleados; i++) {
             if (empleados[i].getUsuario().equals(user) && empleados[i].getContrasena().equals(pass)) {
-                return empleados[i]; // Aplica polimorfismo retornando el rol específico
+                return empleados[i]; 
             }
         }
         return null;
